@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Like - Media</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+<header class="header">
+    <h1 class="logo">Media</h1>
+    <button class="menu-btn" id="menuBtn">☰</button>
+
+    <nav class="nav" id="navMenu">
+        <a href="index.html">Inicio</a>
+        <a href="social_comentario.html">Comentarios</a>
+        <a href="social_noticias.html">Noticias</a>
+    </nav>
+</header>
+
+<main class="principal">
+    <h2>Publicaciones Multimedia</h2>
+
+    <!-- PUBLICACIÓN 1: VIDEO -->
+    <div class="post">
+        <h3>@cinefan</h3>
+        <p>Trailer de la nueva película post-apocalíptica.</p>
+        <video controls width="100%">
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            Tu navegador no soporta video.
+        </video>
+        <div class="like-area">
+            <button class="like-btn" data-id="1">❤</button>
+            <span class="likes" id="likes-1">25</span> Likes
+        </div>
+    </div>
+
+    <!-- PUBLICACIÓN 2: IMAGEN -->
+    <div class="post">
+        <h3>@luna_art</h3>
+        <p>Nuevo dibujo terminado hoy. ¿Qué opinan?</p>
+        <img src="https://images.unsplash.com/photo-1704136815809-e2727d357a2b?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Imagen de arte">
+
+        <div class="like-area">
+            <button class="like-btn" data-id="2">❤</button>
+            <span class="likes" id="likes-2">45</span> Likes
+        </div>
+    </div>
+
+    <!-- PUBLICACIÓN 3: AUDIO -->
+    <div class="post">
+        <h3>@musica123</h3>
+        <p>Escucha esta melodía relajante para la tarde.</p>
+        <audio controls>
+            <source src="media/audio1.mp3" type="audio/mpeg">
+            Tu navegador no soporta audio.
+        </audio>
+        <div class="like-area">
+            <button class="like-btn" data-id="3">❤</button>
+            <span class="likes" id="likes-3">18</span> Likes
+        </div>
+    </div>
+
+</main>
+
+<script src="js/script.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const likeButtons = document.querySelectorAll(".like-btn");
+    const likedState = {}; // Guarda si ya se dio like o no
+
+    likeButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            const id = btn.dataset.id;
+            const counter = document.getElementById("likes-" + id);
+            let currentLikes = parseInt(counter.textContent);
+
+            if (!likedState[id]) {
+                currentLikes++;
+                likedState[id] = true;
+                btn.classList.add("liked");
+            } else {
+                currentLikes--;
+                likedState[id] = false;
+                btn.classList.remove("liked");
+            }
+
+            counter.textContent = currentLikes;
+        });
+    });
+
+});
+</script>
+
+</body>
+</html>

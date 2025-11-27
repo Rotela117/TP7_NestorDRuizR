@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Observador Digital - Noticias</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+<header class="header">
+    <h1 class="logo">El Observador Digital</h1>
+
+    <button class="menu-btn" id="menuBtn">☰</button>
+
+    <nav class="nav" id="navMenu">
+        <a href="index.html">Inicio</a>
+        <a href="social_media.html">Media</a>
+        <a href="social_comentario.html">Comentarios</a>
+    </nav>
+</header>
+
+<main class="principal">
+
+    <!-- PORTADA DESTACADA -->
+    <section class="portada">
+        <img src="https://preview.redd.it/cordyceps-infection-map-based-on-hbos-intro-not-exactly-v0-oybfzgixc3ka1.png?width=1080&crop=smart&auto=webp&s=6115b0cdc44666db9bea255dea9ebc4c71c0c228" alt="Noticia Principal" class="portada-img">
+
+        <div class="portada-texto">
+            <h2>Epidemia Fúngica Desata Estado de Emergencia Nacional</h2>
+            <p>
+                Autoridades confirman la propagación acelerada del hongo mutado tipo “cordyceps”. 
+                Fuerzas especiales aseguran perímetros y se insta a la población a evitar desplazamientos innecesarios.
+            </p>
+
+            <div class="like-area">
+                <button class="like-btn" data-id="201">👍</button>
+                <span id="likes-201" class="likes">112</span> Likes
+            </div>
+        </div>
+    </section>
+
+    <hr style="margin: 30px 0;">
+
+    <!-- NOTICIAS SECUNDARIAS -->
+    <div id="noticias" class="noticias-box">
+
+        <div class="noticia seria">
+            <h3>Brotes Detectados en Nuevas Regiones</h3>
+            <p>
+                Equipos de respuesta rápida han confirmado la presencia de infectados en varias zonas urbanas. 
+                Se recomienda a la población mantenerse informada y seguir las medidas de seguridad.
+            </p>
+            <small>Publicado hace 3 horas</small>
+
+            <div class="like-area">
+                <button class="like-btn" data-id="202">👍</button>
+                <span id="likes-202" class="likes">87</span> Likes
+            </div>
+        </div>
+
+        <div class="noticia seria">
+            <h3>Laboratorios Aceleran Pruebas del Prototipo de Antídoto</h3>
+            <p>
+                Expertos señalan progresos significativos en los estudios preliminares para contener la mutación fúngica. 
+                Se esperan resultados oficiales en los próximos días.
+            </p>
+            <small>Publicado ayer</small>
+
+            <div class="like-area">
+                <button class="like-btn" data-id="203">👍</button>
+                <span id="likes-203" class="likes">63</span> Likes
+            </div>
+        </div>
+
+        <div class="noticia seria">
+            <h3>Cierre Temporal de Fronteras: Medida de Prevención</h3>
+            <p>
+                Los gobiernos regionales acordaron el cierre temporal de fronteras para evitar la expansión del brote. 
+                Se evaluará la situación semanalmente.
+            </p>
+            <small>Publicado hace 2 días</small>
+
+            <div class="like-area">
+                <button class="like-btn" data-id="204">👍</button>
+                <span id="likes-204" class="likes">41</span> Likes
+            </div>
+        </div>
+
+    </div>
+
+</main>
+
+<script src="js/script.js"></script>
+
+<script>
+// Likes para noticias
+document.addEventListener("DOMContentLoaded", () => {
+
+    const botones = document.querySelectorAll(".like-btn");
+    const likedState = {};
+
+    botones.forEach(btn => {
+        btn.addEventListener("click", () => {
+
+            const id = btn.dataset.id;
+            const contador = document.getElementById("likes-" + id);
+            let n = parseInt(contador.textContent);
+
+            if (!likedState[id]) {
+                likedState[id] = true;
+                n++;
+                btn.classList.add("liked");
+            } else {
+                likedState[id] = false;
+                n--;
+                btn.classList.remove("liked");
+            }
+
+            contador.textContent = n;
+        });
+    });
+
+});
+</script>
+
+</body>
+</html>

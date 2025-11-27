@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Like - Comentarios</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+<header class="header">
+    <h1 class="logo">Comentarios</h1>
+
+    <button class="menu-btn" id="menuBtn">☰</button>
+
+    <nav class="nav" id="navMenu">
+        <a href="index.html">Inicio</a>
+        <a href="social_media.html">Media</a>
+        <a href="social_noticias.html">Noticias</a>
+    </nav>
+</header>
+
+<main class="principal">
+    <h2>Comentarios de la comunidad</h2>
+
+    <!-- Comentarios existentes -->
+    <div id="comentarios" class="comentarios-box">
+
+        <div class="coment" data-id="c1">
+            <h4>@sofi_r</h4>
+            <p>Buen diseño el del sitio. Va tomando forma.</p>
+            <div class="like-area">
+                <button class="like-btn">❤</button>
+                <span class="likes">5</span> Likes
+            </div>
+        </div>
+
+        <div class="coment" data-id="c2">
+            <h4>@tomas_dev</h4>
+            <p>¿Van a agregar perfiles personalizados?</p>
+            <div class="like-area">
+                <button class="like-btn">❤</button>
+                <span class="likes">3</span> Likes
+            </div>
+        </div>
+
+        <div class="coment" data-id="c3">
+            <h4>@luisa23</h4>
+            <p>Me gusta la sección de media, está simpática.</p>
+            <div class="like-area">
+                <button class="like-btn">❤</button>
+                <span class="likes">4</span> Likes
+            </div>
+        </div>
+
+    </div>
+
+    <hr>
+
+    <!-- Formulario -->
+    <h3>Agregar comentario</h3>
+
+    <form id="formComentario">
+        <input type="text" id="usuario" placeholder="Tu usuario (ej: @nestor)" required>
+        <textarea id="texto" placeholder="Escribe tu comentario..." required></textarea>
+        <button type="submit" class="btn">Publicar</button>
+    </form>
+
+</main>
+
+<script src="js/script.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const form = document.getElementById("formComentario");
+    const contenedor = document.getElementById("comentarios");
+    let nextId = 4; // Para comentarios dinámicos
+
+    // Función para agregar funcionalidad de like a un comentario
+    function activarLike(comentario) {
+        const btn = comentario.querySelector(".like-btn");
+        const span = comentario.querySelector(".likes");
+        let liked = false;
+
+        btn.addEventListener("click", () => {
+            let n = parseInt(span.textContent);
+            if (!liked) {
+                n++;
+                liked = true;
+                btn.classList.add("liked");
+            } else {
+                n--;
+                liked = false;
+                btn.classList.remove("liked");
+            }
+            span.textContent = n;
+        });
+    }
+
+    // Activar likes en comentarios existentes
+    const comentariosExistentes = document.querySelectorAll(".coment");
+    comentariosExistentes.forEach(c => activarLike(c));
+
+    // Agregar nuevo comentario con like
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const user = document.getElementById("usuario").value.trim();
+        const txt = document.getElementById("texto").value.trim();
+        if (user === "" || txt === "") return;
+
+        const nuevo = document.createElement("div");
+        nuevo.classList.add("coment");
+        nuevo.dataset.id = "c" + nextId;
+        nextId++;
+
+        nuevo.innerHTML = `
+            <h4>${user}</h4>
+            <p>${txt}</p>
+            <div class="like-area">
+                <button class="like-btn">❤</button>
+                <span class="likes">0</span> Likes
+            </div>
+        `;
+
+        contenedor.prepend(nuevo);
+        activarLike(nuevo);
+
+        form.reset();
+    });
+
+});
+</script>
+
+</body>
+</html>
